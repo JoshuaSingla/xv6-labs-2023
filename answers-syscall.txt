@@ -1,0 +1,10 @@
+Question: Looking at the backtrace output, which function called syscall?
+
+Answer: the exec initroot process called syscall
+
+Question: What is the value of p->trapframe->a7 and what does that value represent?
+
+It represents the exec syscall number
+
+Question: What was the previous mode that the CPU was in?
+Userland mode?
