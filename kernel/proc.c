@@ -177,6 +177,7 @@ pagetable_t
 proc_pagetable(struct proc *p)
 {
   pagetable_t pagetable;
+  struct usyscall* usys = kalloc();
 
   // An empty page table.
   pagetable = uvmcreate();
@@ -202,6 +203,17 @@ proc_pagetable(struct proc *p)
     return 0;
   }
 
+  /*
+   * Map the pid at USYSCALL
+   * */
+  usys->pid = p->pid;
+  int ret = mappages(pagetable, USYSCALL, PGSIZE, (uint64)(usys), PTE_R | PTE_U);
+  if(ret < 0){
+    uvmunmap(pagetable, TRAPFRAME, 1, 0);
+    uvmfree(pagetable, 0);
+    return 0;
+  }
+
   return pagetable;
 }
 
@@ -212,6 +224,7 @@ proc_freepagetable(pagetable_t pagetable, uint64 sz)
 {
   uvmunmap(pagetable, TRAMPOLINE, 1, 0);
   uvmunmap(pagetable, TRAPFRAME, 1, 0);
+  uvmunmap(pagetable, USYSCALL, 1, 0);
   uvmfree(pagetable, sz);
 }
 
