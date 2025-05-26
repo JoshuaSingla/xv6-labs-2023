@@ -1,0 +1,8 @@
+RISC-V assembly
+a1, a2, a3 etc hold arguments for functions
+f is not actually called the in the code. 12 is loaded directly into a1
+printf is at 0x630
+ra contains the address of the next instruction, which is the call to exit
+The output is HE110 World. i should be set to 16
+For big-endian, it would have to be 0x726x6400. You would not have to change i.
+Whatever is in a2 is printed.
