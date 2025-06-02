@@ -103,5 +103,8 @@ struct proc {
   struct context context;      // swtch() here to run process
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
+  int fn_interval;             // Time interval between function calls
+  int ticks_passed;            // Number of ticks
+  uint64 fn_ptr;               // User space function pointer
   char name[16];               // Process name (debugging)
 };

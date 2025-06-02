@@ -21,6 +21,8 @@ int dup(int);
 int getpid(void);
 char* sbrk(int);
 int sleep(int);
+int sigalarm(int, void (*fn)(void));
+int sigreturn(void);
 int uptime(void);
 
 // ulib.c
